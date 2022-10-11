@@ -1,0 +1,7 @@
+LightmappedGeneric
+{
+	$basetexture "start_new"
+
+	$alpha 0.78
+	$translucent 1
+}

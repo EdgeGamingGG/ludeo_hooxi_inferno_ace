@@ -1,0 +1,10 @@
+UnlitGeneric
+{
+	$basetexture "intro_ed3"
+	$surfaceprop Default_Silent
+	$alphatest		1
+	$alphatestreference	.5
+	$allowalphatocoverage	1
+	$nofog 1
+	$nodecal 1
+}

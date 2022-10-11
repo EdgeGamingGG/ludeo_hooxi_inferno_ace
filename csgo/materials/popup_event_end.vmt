@@ -1,0 +1,11 @@
+UnlitGeneric
+{
+	$basetexture "popup_event_end"
+	$surfaceprop Default_Silent
+	$alphatest		1
+	$alphatestreference	.5
+	$allowalphatocoverage	1
+	$nofog 1
+	$nodecal 1
+	$translucent 1
+}

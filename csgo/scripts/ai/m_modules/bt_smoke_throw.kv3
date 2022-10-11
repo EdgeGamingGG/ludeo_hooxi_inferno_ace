@@ -1,0 +1,55 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+ 
+{
+    type = "selector"
+    children =
+    [
+        {
+            type = "decorator_run_once"
+            child =
+            {
+                type = "sequencer"
+                children =
+                [
+                    {
+						type = "decorator_succeed"
+						child =
+						{
+							type = "decorator_run_once"
+							child =
+							{
+								type = "action_acquire_items"
+								items =
+								[
+                           			"weapon_smokegrenade"
+								]
+								remove_all_items = 0
+							}
+						}
+					},
+					{
+						type = "action_equip_weapon"
+						weapon = "weapon_smokegrenade"
+					},
+					{
+						type = "action_wait" // we need to wait for the smoke equip time
+						wait_time_min = 1.0 //0.41
+						wait_time_max = 1.0 //0.41
+					},
+					//{
+					//	type = "action_look_at"
+					//	input_angles = "20 220 0" // throw angle
+					//},
+					{
+						type = "action_pull_trigger"
+					},
+					{
+						type = "action_wait"
+						wait_time_min = 0.5
+						wait_time_max = 0.5
+					},
+                ]	
+            }
+        }
+    ]
+}

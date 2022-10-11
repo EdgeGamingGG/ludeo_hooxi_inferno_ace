@@ -1,0 +1,8 @@
+UnlitGeneric
+{
+	$basetexture "event_summary_background"
+	$surfaceprop Default_Silent
+	$nodecal 1
+	$nolod 1
+	$translucent 1
+}

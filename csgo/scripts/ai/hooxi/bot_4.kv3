@@ -1,0 +1,148 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+
+// bt_stand_shoot.kv3
+// Made by 9yz for Mapshot 
+// Last Updated: 01/26/22
+//
+// Bots running this script will run to a point and then attack normally.
+// Change the point to run to on line 125
+// To prevent the bot from moving after reaching the point, comment out line 86 and uncomment line 87
+//
+
+{
+	config = "scripts/ai/hooxi/bt_config.kv3"
+	root =
+	{
+		type = "decorator_bot_service"
+		memory_to_expire =
+		[
+			{
+				key = "ShortTermAttackMemory"
+				time = 0.7
+				distance = 0
+			},
+			{
+				key = "LongTermMemory"
+				time = 120
+				distance = 5000
+			},
+			{
+				key = "ShortTermInvestigateMemory"
+				time = 3
+				distance = 0
+			}
+		]
+		child =
+		{
+			type = "parallel" //main script
+			children =
+			[
+				{
+					type = "decorator_repeat"
+					child =
+					{
+						type = "parallel"
+						children =
+						[
+							// memorize enemies through vision
+							{
+								type = "subtree"
+								file = "scripts/ai/m_modules/bt_memorize_enemies_vision.kv3"
+								name = "MemorizeEnemiesVision"
+							},
+							// memorize noises happening right now
+							{
+								type = "subtree"
+								file = "scripts/ai/m_modules/bt_memorize_noises.kv3"
+								name = "MemorizeNoises"
+							},
+							// record the nearest memorized event to investigate
+							{
+								type = "subtree"
+								file = "scripts/ai/m_modules/bt_memorize_nearest_investigation.kv3"
+								name = "MemorizeNearestInvestigation"
+							},
+							{
+								type = "decorator_sensor"
+								shape =
+								{
+									type = "sensor_shape_sphere"
+								}
+								entity_type_filter = "PLAYERS"
+								team_filter = "ENEMY"
+								output = "WallhackVision"
+								priority = 0
+								child = 
+								{
+									type = "decorator_picker_nearby"
+									input = "WallhackVision"
+									cutoff_distance = 5000
+									output = "WallhackVision"
+								}
+							}
+						]
+					}
+				},
+				{
+					type = "sequencer" //do it in this order
+					children = 
+					[	
+						{
+							type = "action_equip_weapon"
+							weapon = "BEST"
+						},
+						{
+							type = "decorator_repeat"
+							child =
+							{
+								type = "selector"
+								children =
+								[
+									{
+										type = "subtree"
+										file = "scripts/ai/m_modules/bt_attack.kv3" 
+										name = "Bot 4"
+									},
+									{ //...run to the point while looking at the player entrance
+										type = "parallel"
+										children = 
+										[
+											{
+												type = "action_move_to"
+												//////////////////////////////////
+												destination = "map_bot_runto_target_4" //CHANGE THIS: FIRST POINT TO RUN TO
+												//////////////////////////////////
+												movement_type = "BT_ACTION_MOVETO_RUN"
+												route_type = "BT_ACTION_MOVETO_FASTEST_ROUTE"
+												threat = "NearestThreatMemory"
+												auto_look_adjust = 0
+											}
+										]
+									},
+									{ //look for enemies within the threshold, if there are none...
+										type = "decorator_picker_reaction_time"
+										input = "ShortTermInvestigateMemory"
+										output = "ShortTermInvestigateMemoryWithinReactionTime"
+										child =
+										{
+											type = "condition_distance_less"
+											input = "ShortTermInvestigateMemoryWithinReactionTime"
+											distance_threshold_min = 15500 //anything below this seems to pass, guessing the min/max is a randomized threshold?
+											distance_threshold_max = 17700
+											child =
+											{
+												type = "subtree"
+												file = "scripts/ai/m_modules/bt_investigate_closest_memorized_event.kv3"
+												name = "InvestigateNearbyMemorizedEvent"
+											}
+										}
+									},
+								]
+							}
+						}						
+					]
+				}
+			]
+		}
+	}
+}

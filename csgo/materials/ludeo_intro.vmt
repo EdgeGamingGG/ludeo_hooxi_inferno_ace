@@ -1,0 +1,10 @@
+UnlitGeneric
+{
+	$basetexture "ludeo_intro"
+	$surfaceprop Default_Silent
+	$nodecal 1
+	$nolod 1
+	$alphatest		1
+	$alphatestreference	.5
+	$allowalphatocoverage	1
+}

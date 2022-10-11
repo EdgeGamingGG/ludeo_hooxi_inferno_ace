@@ -1,0 +1,10 @@
+UnlitGeneric
+{
+	$basetexture "popup_visit_edge"
+	$surfaceprop Default_Silent
+
+	$alphatest 1
+
+	$nodecal 1
+	$nofog 1
+}
