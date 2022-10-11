@@ -124,10 +124,7 @@ VS.ListenToGameEvent( "player_death", function( event )
 			{
 				::COUNTERS.headShoots++;
 			}
-			if(event.noscope)
-			{
-				::COUNTERS.noscope++;
-			}
+			::COUNTERS.killTimeStamps.append(Time())
 		}
 		catch(e)
 		{

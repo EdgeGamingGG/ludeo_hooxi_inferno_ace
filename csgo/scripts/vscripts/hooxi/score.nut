@@ -2,12 +2,12 @@
 ::ResetSummaryBoard<-function()
 {
 	::state.CONST_TIME  = 0;
-	::state.CONST_NOSCOPE =  0;
+	::state.CONST_KTIME =  0;
 	::state.CONST_HEADSHOTS = 0;
 	::state.CONST_HP = 0;
 	::state.CONST_SCORE = 0;
 	::SetDisplayText("menu_score_time", 0);
-	::SetDisplayText("menu_score_noscope",0);
+	::SetDisplayText("menu_score_timetokill",0);
 	::SetDisplayText("menu_score_hs", 0);
   	::SetDisplayText("menu_score_hp", 0);
 }
@@ -16,14 +16,17 @@
  */
 ::CalculateScore<-function(win = true)
 {
+	if (::COUNTERS.killTimeStamps.len() > 0)
+        ::COUNTERS.killtime = ::Round( ::COUNTERS.killTimeStamps.top() - ::COUNTERS.killTimeStamps[0] );
+
 	::state.CONST_TIME  = ::TIMERS.secondsPassed;
 	::state.CONST_HEADSHOTS = ::COUNTERS.headShoots;
-	::state.CONST_NOSCOPE =  ::COUNTERS.noscope;
+    ::state.CONST_KTIME = ::COUNTERS.killtime;
 	::state.CONST_HP = ::COUNTERS.health;
 	::state.CONST_SCORE =
 		((::ROUND_TIME - ::TIMERS.secondsPassed) * ::TIME_SCORE) +
+		((::ROUND_TIME - ::COUNTERS.killtime)  * ::KILLTIME_SCORE) +
 		(::COUNTERS.headShoots * ::HEADSHOOTS_SCORE) +
-		(::COUNTERS.noscope * ::NOSCOPE_SCORE) +
 		(::COUNTERS.health * ::HP_SCORE);
 
 	if(::state.valid_challenge_round)
@@ -53,7 +56,7 @@
 	local diffStr =  ::GetDifficultyNameByNumber(::state.CONST_DIFF);
 	Chat("\n"); 	
 	Chat(::SCORE_TIME_CHAT_MSG + ::state.CONST_TIME);
-	Chat(::SCORE_NOSCOPE_CHAT_MSG + ::state.CONST_NOSCOPE);
+    Chat(::SCORE_KILLTIME_CHAT_MSG + ::state.CONST_KTIME);
 	Chat(::SCORE_HEADSHOTS_CHAT_MSG + ::state.CONST_HEADSHOTS);
 	Chat(::SCORE_HP_CHAT_MSG + ::state.CONST_HP); 
 	Chat(::SCORE_DIFFICULTY_CHAT_MSG + diffStr);
@@ -96,7 +99,7 @@
 
 	}
 	::SetDisplayText("score_row_1", _timeString);
-	::SetDisplayText("score_row_2", ::state.exists("CONST_NOSCOPE") ? ::state.CONST_NOSCOPE : 0);
+    ::SetDisplayText("score_row_2", ::state.exists("CONST_KTIME") ? ::state.CONST_KTIME : 0);
 	::SetDisplayText("score_row_3", ::state.exists("CONST_HEADSHOTS") ? ::state.CONST_HEADSHOTS : 0);
 	::SetDisplayText("score_row_4", ::state.exists("CONST_HP") ? ::state.CONST_HP : 0);
 	::SetDisplayText("score_row_5", diffStr);
@@ -107,10 +110,15 @@
 ::UpdateMenuScores<-function()
 {
     ::SetDisplayText("menu_score_time",::state.CONST_TIME);
-	::SetDisplayText("menu_score_noscope",::state.CONST_NOSCOPE);
+    ::SetDisplayText("menu_score_timetokill", ::state.CONST_KTIME);
 	::SetDisplayText("menu_score_hs",::state.CONST_HEADSHOTS);
     ::SetDisplayText("menu_score_hp", ::state.CONST_HP);
     ::SetDisplayText("menu_score_difficulty", ::state.CONST_DIFF);
 	::SetDisplayText("menu_score_total",::state.CONST_SCORE);
     EntFire("@script", "runscriptcode", "::CacheScores()", 0.05, null);
+}
+
+::Round<-function(n, d=2){
+    local decimals = ( pow(10, d) ).tofloat()
+    return ( floor( ( n * decimals) + 0.5 ) / decimals )
 }

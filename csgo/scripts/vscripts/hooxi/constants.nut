@@ -41,9 +41,9 @@
     {
         ::state.CONST_DIFF <- 2;
     }
-    if(!::state.exists("CONST_NOSCOPE"))
+    if(!::state.exists("CONST_KTIME"))
     {
-        ::state.CONST_NOSCOPE <- 0;
+        ::state.CONST_KTIME <- 0;
     }
 }
 EntFire("@script", "runscriptcode", "InitializeConstants()",  0.1, null);

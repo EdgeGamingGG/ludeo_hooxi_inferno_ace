@@ -4,38 +4,38 @@
 ::TIMER_HURRY_UP_SOUND <- "separatist.radio.letsgo11";
 ::PARTY_HORN <- "weapons/party_horn_01.wav";
 ::EVENT_HUD_TEXT_1_MSG <- "Event ends in:";
-::ROUND_TIME <- 20;
+::ROUND_TIME <- 30;
 ::BOMB_TIME <- 40;
 ::TIME_RUNNING_OUT_THRESHOLD <- 5;
 ::DEFAULT_PLAYABLE_DIFFICULTY <- 2;
 //# EQUIPMENT
 ::PLAYER_EQUIPMENT <- 
 [
-    ["item_assaultsuit",1],   
-    ["weapon_awp",30],
-    ["weapon_deagle",35],
+    ["item_kevlar",1],
+    ["weapon_famas",90],
+    ["weapon_usp_silencer",24],
     ["weapon_knife",1]
 ]
 
 ::DEFAULT_BOT_EQUIPMENT <-
 [
-    "item_kevlar,tec9,knife",
-    "item_kevlar,p250,knife",
-    "item_kevlar,m4a1,knife",
-    "item_kevlar,glock,knife",
-    "item_kevlar,tec9,knife",
+    "item_kevlar,ak47,knife",
+    "item_kevlar,ak47,knife",
+    "item_kevlar,ak47,knife",
+    "item_kevlar,ak47,knife",
+    "item_kevlar,galilar,knife",
 ]
 
 ::DIFFICULTY_ARRAYS <-
 [
-    [2,2,3,3,3],
-    [4,4,5,5,5],
-    [6,6,7,7,7],
+    [1,1,1,1,1],
+    [3,3,3,3,3],
+    [4,5,5,5,5],
 ]
 
 //# SCORE VALUES
 ::TIME_SCORE <- 150;
-::NOSCOPE_SCORE <- 200;
+::KILLTIME_SCORE <- 50;
 ::HEADSHOOTS_SCORE <- 100;
 ::HP_SCORE <- 5;
 
@@ -43,7 +43,7 @@
 
 //# PLAYER
 ::PLAYER_STARTING_HEALTH <- 100;
-::PLAYER_STARTING_AMMO <- 42;
+::PLAYER_STARTING_AMMO <- 115;
 
 //# DELAYS
 ::RESET_ROUND_DELAY <- 1;
@@ -64,7 +64,7 @@
 
 //# SCORE CHAT MESSAGES
 ::SCORE_TIME_CHAT_MSG <-   TextColor.Award + "Time: " + TextColor.Normal;
-::SCORE_NOSCOPE_CHAT_MSG <-  TextColor.Award + "No Scopes: " + TextColor.Normal;
+::SCORE_KILLTIME_CHAT_MSG <-   TextColor.Award + "Kill Time: " + TextColor.Normal;
 ::SCORE_HEADSHOTS_CHAT_MSG <-  TextColor.Award + "Headshots: " + TextColor.Normal;
 ::SCORE_HP_CHAT_MSG <- TextColor.Award + "Health: " + TextColor.Normal;
 ::SCORE_DIFFICULTY_CHAT_MSG <- TextColor.Award + "Difficulty: " + TextColor.Normal;

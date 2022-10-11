@@ -21,9 +21,10 @@ if(!::state.exists("consecutiveLosses"))
 ::COUNTERS <-
 {
 	headShoots = 0,
-	noscope = 0,
 	health = 0,
 	bots_dead = 0,
+	killTimeStamps = [],
+	killtime = 0,
 }
 
 ::FLAGS <-
@@ -107,7 +108,7 @@ if(!::state.exists("loaded"))
 	::SetStartClipStatus(true);
 	EntFire("trigger_spawn","Disable");
 	SendToConsoleBoth("sv_infinite_ammo 1");
-	try{::player.self.SetAngles(0,0,0);} catch(e){};
+	try{::player.self.SetAngles(0,270,0);} catch(e){};
 	//# Intro Screens
 
 	::SetBotSpawnsStatus(true);
@@ -132,7 +133,7 @@ if(!::state.exists("loaded"))
 		}
 		if(::state.SCREENS.event_intro)
 		{
-			::SwitchToWeaponSlot(2);
+			//::SwitchToWeaponSlot(2);
 			::ShowEventIntroMenu(::state.playable_difficulty);
 			::ShowScoreMenu();
 		}		
@@ -156,7 +157,7 @@ if(!::state.exists("loaded"))
 	{
 		if(::state.SCREENS.intro) // first time playing
 		{
-			::SwitchToWeaponSlot(2);
+			//::SwitchToWeaponSlot(2);
 			::ShowIntroMenu(::state.playable_difficulty);
 			::ShowScoreMenu();
 		}
@@ -245,12 +246,12 @@ if(!::state.exists("loaded"))
 		::state.CONST_SCORE = 0;
 		::timerRunning = 1;
 		::StartBotFacer();
-		::GivePlayerHEGrenade();
+		//::GivePlayerHEGrenade();
 		EntFire("@script", "runscriptcode", "::TimerRun()", 0 , null);
 		activator.EmitSound(::TIMER_START_SOUND);	
 		EntFire("@script", "runscriptcode", "::Event_StartRound()", 0, null);
 
-		EntFire("@script","runscriptcode","::HuntPlayerInfoTarget()",10);
+		EntFire("@script","runscriptcode","::HuntPlayerInfoTarget()",4);
 	}
 
 }
