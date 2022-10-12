@@ -18,6 +18,9 @@
 {
 	if (::COUNTERS.killTimeStamps.len() > 0)
         ::COUNTERS.killtime = ::Round( ::COUNTERS.killTimeStamps.top() - ::COUNTERS.killTimeStamps[0] );
+			
+	if(::COUNTERS.headShoots>10)
+		::COUNTERS.headShoots = 10;
 
 	::state.CONST_TIME  = ::TIMERS.secondsPassed;
 	::state.CONST_HEADSHOTS = ::COUNTERS.headShoots;

@@ -73,6 +73,13 @@ VS.ListenToGameEvent( "player_hurt", function( event )
 	}
 	local victim = VS.GetPlayerByUserid( event.userid );
 	local attacker = VS.GetPlayerByUserid( event.attacker );
+    if (::player && ::player.self == attacker)
+	{
+		if(event.hitgroup == 1)
+		{ 
+			::COUNTERS.headShoots++;
+		}
+	}
 	local botid = split(split(victim.tostring(),"]")[0],"[")[1].tointeger()-1;
 	try // Release bot if damaged
 	{
@@ -120,10 +127,6 @@ VS.ListenToGameEvent( "player_death", function( event )
 			local botid = split(split(victim.tostring(),"]")[0],"[")[1].tointeger()-1;
 			FLAGS.botsDied[botid-1] = 1;
 		
-			if(event.headshot)
-			{
-				::COUNTERS.headShoots++;
-			}
 			::COUNTERS.killTimeStamps.append(Time())
 		}
 		catch(e)

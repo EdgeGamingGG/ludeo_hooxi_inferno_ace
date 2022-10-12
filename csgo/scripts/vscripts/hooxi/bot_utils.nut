@@ -45,7 +45,7 @@
 */
 ::TriggerBotClips<-function()
 {
-	local botTimes = [2,6,7.5,8.5,9];
+	local botTimes = [2,6,7.5,8.5,9.25];
 	local jailTime = 0;
 	for(local i=1; i<=::BOTS_KILL_QUOTA; i++)
 	{
