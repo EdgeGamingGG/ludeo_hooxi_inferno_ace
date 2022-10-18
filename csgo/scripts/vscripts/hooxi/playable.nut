@@ -318,8 +318,7 @@ if(!::state.exists("loaded"))
                     local botid = split(split(bot.tostring(),"]")[0],"[")[1].tointeger();
                     if(botid<2) continue;
                     botid-=1;
-                    local dest = Entities.FindByName(null,"bot_"+botid+"_spawn");
-                    bot.SetOrigin(dest.GetOrigin());
+					EntFire("@script","runscriptcode","::TeleportBotPosition("+botid+")",botTimes[botid-1]);
                 }
                 catch(e)
                 {
@@ -327,4 +326,31 @@ if(!::state.exists("loaded"))
                 }
             }
         }
+}
+
+::TeleportBotPosition<-function(botid)
+{
+	local bot;
+	while (bot = Entities.FindByClassname(bot, "cs_bot")) 
+	{       
+	    if (bot != null)
+	    {       
+	        try
+	        {
+	            local currantbotid = split(split(bot.tostring(),"]")[0],"[")[1].tointeger();
+	            if(currantbotid<2) continue;
+	            currantbotid-=1;
+				if(currantbotid == botid)
+				{
+					local dest = Entities.FindByName(null,"bot_"+botid+"_spawn");
+					bot.SetOrigin(dest.GetOrigin());
+					break;
+				}
+	        }
+	        catch(e)
+	        {
+	            printl(e);
+	        }
+	    }
+	}
 }

@@ -1,7 +1,0 @@
-
-<font color='#ff9844'>Experience the epic play by HooXi and replay to compete for the highest score</font>
-
-
-<font color='#05ddf5'>Visit Ludeo platform for leaderboard, rewards, and many more ludeos</font>
-
-<font color= '#FFFFFF'>Type !r in chat to reset the map</font>

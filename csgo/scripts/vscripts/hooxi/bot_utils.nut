@@ -1,5 +1,6 @@
 ::hunters <- [0,0,0,0,0];
 ::released <- [0,0,0,0,0];
+::botTimes <- [0,4,5.5,6.5,7.25];
 
 ::bot4TargetInfo <- Entities.FindByName(null,"map_bot_runto_target_4");
 ::bot5TargetInfo <- Entities.FindByName(null,"map_bot_runto_target_5");
@@ -45,7 +46,6 @@
 */
 ::TriggerBotClips<-function()
 {
-	local botTimes = [2,6,7.5,8.5,9.25];
 	local jailTime = 0;
 	for(local i=1; i<=::BOTS_KILL_QUOTA; i++)
 	{
